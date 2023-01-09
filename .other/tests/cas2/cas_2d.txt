@@ -1,0 +1,12 @@
+IN:
+< zunknown1 nonvalid1 | nonvalid2 > zfile2
+
+OUT: 
+bash: [file1]: No such file or directory
+
+FILES:
+unknown1: <not created>
+zfile2: <not updated >
+
+CMD:
+valgrind --leak-check=full ./pipex zunknown1 "nonvalid1" "nonvalid2" zfile2

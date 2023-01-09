@@ -1,0 +1,12 @@
+IN:
+< "" nonvalid1 | wc -l > ""
+
+OUT: 
+no such file or directory
+no such file or directory
+
+FILES:
+
+
+CMD:
+valgrind --leak-check=full ./pipex "" "nonvalid1" "wc -l" ""

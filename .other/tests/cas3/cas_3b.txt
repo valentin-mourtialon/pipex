@@ -1,0 +1,11 @@
+IN:
+< zfile1 grep pi | nonvalid2 > zunknown2
+
+OUT: 
+nonvalid2: command not found
+
+FILES:
+zunknown2: <created empty>
+
+CMD:
+valgrind --leak-check=full ./pipex zfile1 "grep pi" "nonvalid2" zunknown2

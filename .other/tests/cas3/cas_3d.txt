@@ -1,0 +1,13 @@
+IN:
+< zfile1 nonvalid1 | nonvalid2 > zunknown2
+
+OUT: 
+nonvalid1: command not found
+nonvalid2: command not found
+
+FILES:
+zfile1: <unchanged>
+zunknown2: <created empty>
+
+CMD:
+valgrind --leak-check=full ./pipex zfile1 "nonvalid1" "nonvalid2" zunknown2

@@ -1,0 +1,11 @@
+IN:
+< "" nonvalid1 | nonvalid2 > ""
+
+OUT: 
+
+
+FILES:
+
+
+CMD:
+valgrind --leak-check=full ./pipex "" "nonvalid1" "nonvalid2" ""

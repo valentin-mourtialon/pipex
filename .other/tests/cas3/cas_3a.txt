@@ -1,0 +1,12 @@
+IN:
+< zfile1 grep pi | wc -l > zunknown2
+
+OUT: 
+
+
+FILES:
+zfile1:
+zunknown2: <created with the right result inside>
+
+CMD:
+valgrind --leak-check=full ./pipex zfile1 "grep pi" "wc -l" zunknown2

@@ -1,0 +1,12 @@
+IN:
+< "" grep pi | nonvalid2 > ""
+
+OUT: 
+no such file or directory
+no such file or directory
+
+FILES:
+
+
+CMD:
+valgrind --leak-check=full ./pipex "" "grep pi" "nonvalid2" ""

@@ -1,0 +1,13 @@
+IN:
+< "" grep pi | wc -l > ""
+
+OUT: 
+no such file or directory
+no such file or directory
+
+FILES:
+"":
+"": 
+
+CMD:
+valgrind --leak-check=full ./pipex "" "grep pi" "wc -l" ""

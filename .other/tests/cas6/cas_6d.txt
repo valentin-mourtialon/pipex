@@ -1,0 +1,12 @@
+IN:
+< "" nonvalid1 | nonvalid2 > zfile2
+
+OUT: 
+no such file or directory
+nonvalid2: command not found
+
+FILES:
+zfile2: < Emptied ! >
+
+CMD:
+valgrind --leak-check=full ./pipex "" "nonvalid1" "nonvalid2" zfile2

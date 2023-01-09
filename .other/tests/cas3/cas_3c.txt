@@ -1,0 +1,12 @@
+IN:
+< zfile1 nonvalid1 | wc -l > zunknown2
+
+OUT: 
+nonvalid1: command not found
+
+FILES:
+zfile1: <unchanged>
+zunknown2: <created with a 0 inside which means the cmd has been executed>
+
+CMD:
+valgrind --leak-check=full ./pipex zfile1 "nonvalid1" "wc -l" zunknown2

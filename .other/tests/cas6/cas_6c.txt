@@ -1,0 +1,11 @@
+IN:
+< "" nonvalid1 | wc -l > zfile2
+
+OUT: 
+no such file or directory
+
+FILES:
+zfile2: < Rewritten >
+
+CMD:
+valgrind --leak-check=full ./pipex "" "nonvalid1" "wc -l" zfile2

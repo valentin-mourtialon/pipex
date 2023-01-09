@@ -1,3 +1,8 @@
+.other/cmds
+.other/debug
+.other/notes
+.other/split
+
 # Prerequisites
 *.d
 

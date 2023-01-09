@@ -1,0 +1,15 @@
+IN:
+zunknown1 "nonvalid1" "nonvalid2" zunknown2
+< zunknown1 nonvalid1 | nonvallid2 > zunknown2
+
+OUT:
+bash: unknown1: No such file or directory
+non valid2: command not found
+
+FILES:
+unknown1: <not created>
+unknown2: <created: empty>
+
+CMD:
+valgrind --leak-check=full ./pipex zunknown1 "nonvalid1" "nonvalid2" zunknown2
+./pipex zunknown1 "grep pi" "wc -l" zunknown2

@@ -1,0 +1,124 @@
+Where did 0644 come from?
+
+It is an octal expression (leading 0) of the unix file mode. 
+See e.g. the chmod manpage. 
+0644 means the owner can read+write (4+2=6), the group can read (4), and others can read (4).
+
+
+Dans le document "tests/case": tous les outputs des cas decrits ci-dessous.
+
+Cas a tester:
+
+------------
+
+	Cas 1: les deux files n'existent pas:
+
+		Cas 1a:
+			2 commandes valides ---------------------- OK
+
+		Cas 1b:
+			cmd1 valide - cmd2 non-valide ------------ OK
+
+		Cas 1c:
+			cmd1 non-valide - cmd2 valide ------------ OK
+
+		Cas 1d:
+			cmd1 non-valide - cmd2 non-valide -------- OK
+
+------------
+
+	Cas 2: file1 non valide
+		
+		Cas 2a:
+			2 commandes valides ---------------------- OK
+
+		Cas 2b:
+			cmd1 valide - cmd2 non-valide ------------ OK
+
+		Cas 2c:
+			cmd1 non-valide - cmd2 valide ------------ OK
+
+		Cas 2d:
+			cmd1 non-valide - cmd2 non-valide -------- OK
+	
+------------
+
+	Cas 3: file2 non valide
+		
+		Cas 3a:
+			2 commandes valides ---------------------- OK
+
+		Cas 3b:
+			cmd1 valide - cmd2 non-valide ------------ OK
+
+		Cas 3c:
+			cmd1 non-valide - cmd2 valide ------------ OK
+
+		Cas 3d:
+			cmd1 non-valide - cmd2 non-valide -------- OK
+
+------------
+
+	Cas 4: les 2 files sont valides
+		
+		Cas 4a:
+			2 commandes valides ---------------------- OK
+
+		Cas 4b:
+			cmd1 valide - cmd2 non-valide ------------ OK
+
+		Cas 4c:
+			cmd1 non-valide - cmd2 valide ------------ OK
+
+		Cas 4d:
+			cmd1 non-valide - cmd2 non-valide -------- OK
+
+------------
+
+	Cas 5: les 2 files ne sont pas renseignes
+		
+		Cas 5a:
+			2 commandes valides ---------------------- OK
+
+		Cas 5b:
+			cmd1 valide - cmd2 non-valide ------------ OK
+
+		Cas 5c:
+			cmd1 non-valide - cmd2 valide ------------ OK
+
+		Cas 5d:
+			cmd1 non-valide - cmd2 non-valide -------- OK
+
+------------
+
+	Cas 6: file1 non renseigne mais file2 oui
+		
+		Cas 6a:
+			2 commandes valide ---------------------- OK
+
+		Cas 6b:
+			cmd1 valide - cmd2 non-valide ------------ OK
+
+		Cas 6c:
+			cmd1 non-valide - cmd2 valide ------------ OK
+
+		Cas 6d:
+			cmd1 non-valide - cmd2 non-valide -------- OK
+
+------------
+
+	Cas 7: file2 non renseigne ("") mais file1 oui
+		
+		Cas 7a:
+			2 commandes valides ---------------------- OK
+
+		Cas 7b:
+			cmd1 valide - cmd2 non-valide ------------ OK
+
+		Cas 7c:
+			cmd1 non-valide - cmd2 valide ------------ KO ------------ Parce que je sors du programme si Outfile Error 
+
+		Cas 7d:
+			cmd1 non-valide - cmd2 non-valide -------- KO ------------ Parce que je sors du programme si Outfile Error 
+
+------------
