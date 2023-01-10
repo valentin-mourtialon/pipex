@@ -1,5 +1,5 @@
 IN:
-< zfile1 grep pi | wc -l > ""
+< zfile1 nonvalid | wc -l > ""
 
 OUT: 
 no such file or directory
@@ -9,4 +9,4 @@ FILES:
 
 CMD:
 valgrind --leak-check=full ./pipex "zfile1" "grep pi" "wc -l" ""
-vgfull ./pipex "zfile1" "grep pi" "wc -l" ""
+vgfull ./pipex "zfile1" "nonvalid1" "wc -l" ""

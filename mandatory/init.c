@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:45 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/09 10:54:06 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:53:21 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,33 @@
 	This behavior requires us to consider the proper execution of the
 	rest of the program, even if the input file does not exist.
 	
-	O_TRUNC ? (l.174)
+	exec_cmd is initialized as 1 before t_pipex is passed to the
+	following function.
 */
-int	init_io(t_pipex *pipex, char **av)
+void	init_input(t_pipex *pipex, char **av)
 {
 	pipex->input_file = open(av[1], O_RDONLY);
 	if (pipex->input_file < 0)
 	{
 		error_msg(av[1]);
-		pipex->exec_cmd = 0;
+		pipex->exec_cmd_input = 0;
 	}
+}
+
+/*
+	We initiate exec_cmd as 1 to erase the 
+	previous value which could be either
+	1 if the input file were valid or 0 if
+	it were not.
+*/
+void	init_output(t_pipex *pipex, char **av)
+{
 	pipex->output_file = open(av[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (pipex->output_file < 0)
-		return (alert_msg(OUTPUT_FILE_ALERT), 0);
-	return (1);
+	{
+		error_msg(av[4]);
+		pipex->exec_cmd_output = 0;
+	}
 }
 
 /*
@@ -52,11 +65,12 @@ int	init_io(t_pipex *pipex, char **av)
 	The first char * is the cmd.
 	All other char* are either an option or an arg of the cmd.
 */
-int	init_pipex(t_pipex *pipex, char **av)
+void	init_pipex(t_pipex *pipex)
 {
-	pipex->exec_cmd = 1;
-	if (init_io(pipex, av) == 0)
-		return (0);
+	pipex->exec_cmd_input = 1;
+	pipex->exec_cmd_output = 1;
+	pipex->input_file = 0;
+	pipex->output_file = 0;
 	pipex->child1_pid = 0;
 	pipex->child2_pid = 0;
 	pipex->pipefd[0] = 0;
@@ -65,5 +79,4 @@ int	init_pipex(t_pipex *pipex, char **av)
 	pipex->exe_path = NULL;
 	pipex->bin_paths = NULL;
 	pipex->cmd_args = NULL;
-	return (1);
 }

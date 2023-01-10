@@ -14,16 +14,16 @@ Cas a tester:
 	Cas 1: les deux files n'existent pas:
 
 		Cas 1a:
-			2 commandes valides ---------------------- OK
+			2 commandes valides ---------------------- OK | OK
 
 		Cas 1b:
-			cmd1 valide - cmd2 non-valide ------------ OK
+			cmd1 valide - cmd2 non-valide ------------ OK | OK
 
 		Cas 1c:
-			cmd1 non-valide - cmd2 valide ------------ OK
+			cmd1 non-valide - cmd2 valide ------------ OK | OK
 
 		Cas 1d:
-			cmd1 non-valide - cmd2 non-valide -------- OK
+			cmd1 non-valide - cmd2 non-valide -------- OK | OK
 
 ------------
 
@@ -116,9 +116,9 @@ Cas a tester:
 			cmd1 valide - cmd2 non-valide ------------ OK
 
 		Cas 7c:
-			cmd1 non-valide - cmd2 valide ------------ KO ------------ Parce que je sors du programme si Outfile Error 
+			cmd1 non-valide - cmd2 valide ------------ OK [KO ------------ Parce que je sors du programme si Outfile Error] 
 
 		Cas 7d:
-			cmd1 non-valide - cmd2 non-valide -------- KO ------------ Parce que je sors du programme si Outfile Error 
+			cmd1 non-valide - cmd2 non-valide -------- OK [KO ------------ Parce que je sors du programme si Outfile Error] 
 
 ------------

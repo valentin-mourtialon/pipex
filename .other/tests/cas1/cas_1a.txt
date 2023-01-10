@@ -11,4 +11,4 @@ unknown2: <created: with a 0 inside which means the cmd has been executed>
 
 CMD:
 valgrind --leak-check=full ./pipex zunknown1 "grep pi" "wc -l" zunknown2
-./pipex zunknown1 "grep pi" "wc -l" zunknown2
+vgfull ./pipex zunknown1 "grep pi" "wc -l" zunknown2

@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:21:28 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/09 10:55:14 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/10 15:03:21 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_wait(t_pipex pipex)
 	int		status;
 
 	close_pipes(&pipex);
-	if (pipex.exec_cmd == 1)
+	if (pipex.exec_cmd_input == 1)
 	{
 		waitpid(pipex.child1_pid, &status, 0);
 		if (!WIFEXITED(status))
@@ -40,17 +40,39 @@ static int	ft_wait(t_pipex pipex)
 			return (alert_msg(INTERRUPT_CHILD1), 0);
 		}
 	}
-	waitpid(pipex.child2_pid, &status, 0);
-	if (!WIFEXITED(status))
+	if (pipex.exec_cmd_output == 1)
 	{
-		close_files(&pipex);
-		free_pipex(&pipex);
-		return (alert_msg(INTERRUPT_CHILD2), 0);
+		waitpid(pipex.child2_pid, &status, 0);
+		if (!WIFEXITED(status))
+		{
+			close_files(&pipex);
+			free_pipex(&pipex);
+			return (alert_msg(INTERRUPT_CHILD2), 0);
+		}
 	}
 	close_files(&pipex);
 	free_pipex(&pipex);
 	return (0);
 }
+
+static void	run_first_child(t_pipex pipex, char **av, char **envp)
+{
+	pipex.child1_pid = fork();
+	if (pipex.child1_pid == 0)
+		first_child(pipex, av, envp);
+	else if (pipex.child1_pid < 0)
+		alert_msg(FORK_ALERT);
+}
+
+static void	run_second_child(t_pipex pipex, char **av, char **envp)
+{
+	pipex.child2_pid = fork();
+	if (pipex.child2_pid == 0)
+		second_child(pipex, av, envp);
+	else if (pipex.child2_pid < 0)
+		alert_msg(FORK_ALERT);
+}
+
 
 /*
 	Note: if the input file does not exist
@@ -64,8 +86,8 @@ int	main(int ac, char **av, char **envp)
 
 	if (ac != 5)
 		return (alert_msg(ARGS_INPUT_ALERT), 0);
-	if (init_pipex(&pipex, av) == 0)
-		return (0);
+	init_pipex(&pipex);
+	init_input(&pipex, av);
 	if (pipe(pipex.pipefd) < 0)
 		return (error_msg(PIPE1_ERR), 0);
 	pipex.paths = get_bin_paths(envp);
@@ -74,14 +96,24 @@ int	main(int ac, char **av, char **envp)
 	pipex.bin_paths = ft_split(pipex.paths, ':');
 	if (!pipex.bin_paths)
 		return (alert_msg(SPLIT_BIN_PATHS_ALERT), 0);
-	if (pipex.exec_cmd == 1)
+	if (pipex.exec_cmd_input == 1)
 	{
-		pipex.child1_pid = fork();
+		run_first_child(pipex, av, envp);
+		/*pipex.child1_pid = fork();
 		if (pipex.child1_pid == 0)
 			first_child(pipex, av, envp);
+		else if (pipex.child1_pid < 0)
+			alert_msg(FORK_ALERT);*/
 	}
-	pipex.child2_pid = fork();
-	if (pipex.child2_pid == 0)
-		second_child(pipex, av, envp);
+	init_output(&pipex, av);
+	if (pipex.exec_cmd_output == 1)
+	{
+		run_second_child(pipex, av, envp);
+		/*pipex.child2_pid = fork();
+		if (pipex.child2_pid == 0)
+			second_child(pipex, av, envp);
+		else if (pipex.child2_pid < 0)
+			alert_msg(FORK_ALERT);*/
+	}
 	return (ft_wait(pipex));
 }

@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:18:36 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/09 16:49:41 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:53:05 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@
 # include <sys/wait.h>
 
 # define ARGS_INPUT_ALERT "Invalid number of arguments.\n"
-# define OUTPUT_FILE_ALERT "Output file error.\n"
 # define PATH_NOT_FOUND_ALERT "PATH not found.\n"
 # define SPLIT_BIN_PATHS_ALERT "Error while splitting PATH.\n"
 # define PIPE1_ERR "Pipe 1"
 # define CMD_ALERT ": Command not found.\n"
+# define FORK_ALERT "Fork error.\n"
 # define INTERRUPT_CHILD1 "First child interrupted.\n"
 # define INTERRUPT_CHILD2 "Second child interrupted.\n"
 
 typedef struct	s_pipex {
-	int		exec_cmd;
+	int		exec_cmd_input;
+	int		exec_cmd_output;
 	int		input_file;
 	int		output_file;
 	int		child1_pid;
@@ -52,8 +53,9 @@ void	error_msg(char *msg);
 void	alert_msg(char *msg);
 
 /* init.c */
-int		init_io(t_pipex *pipex, char **av);
-int		init_pipex(t_pipex *pipex, char **av);
+void	init_output(t_pipex *pipex, char **av);
+void	init_input(t_pipex *pipex, char **av);
+void	init_pipex(t_pipex *pipex);
 
 /* free.c */
 void	free_child(t_pipex *pipex);
