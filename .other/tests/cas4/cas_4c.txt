@@ -1,0 +1,11 @@
+IN:
+< zfile1 nonvalid1 | wc -l > zfile2
+
+OUT: 
+
+
+FILES:
+
+
+CMD:
+vgfull ./pipex zfile1 "nonvalid1" "wc -l" zfile2

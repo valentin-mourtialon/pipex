@@ -9,4 +9,4 @@ FILES:
 
 
 CMD:
-valgrind --leak-check=full ./pipex "" "nonvalid1" "wc -l" ""
+vgfull ./pipex "" "nonvalid1" "wc -l" ""

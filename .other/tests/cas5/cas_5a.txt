@@ -10,4 +10,4 @@ FILES:
 "": 
 
 CMD:
-valgrind --leak-check=full ./pipex "" "grep pi" "wc -l" ""
+vgfull ./pipex "" "grep pi" "wc -l" ""

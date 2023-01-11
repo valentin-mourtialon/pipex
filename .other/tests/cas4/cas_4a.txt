@@ -9,4 +9,4 @@ zfile1:
 zfile2: <whatever it contained it is rewritten with "n" inside which is the result of "wc -l">
 
 CMD:
-valgrind --leak-check=full ./pipex zfile1 "grep pi" "wc -l" zfile2
+vgfull ./pipex zfile1 "grep pi" "wc -l" zfile2

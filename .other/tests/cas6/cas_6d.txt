@@ -9,4 +9,4 @@ FILES:
 zfile2: < Emptied ! >
 
 CMD:
-valgrind --leak-check=full ./pipex "" "nonvalid1" "nonvalid2" zfile2
+vgfull ./pipex "" "nonvalid1" "nonvalid2" zfile2

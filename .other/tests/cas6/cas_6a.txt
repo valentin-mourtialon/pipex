@@ -10,4 +10,4 @@ FILES:
 zfile2: < Rewritten ! > 
 
 CMD:
-valgrind --leak-check=full ./pipex "" "grep pi" "wc -l" zfile2
+vgfull ./pipex "" "grep pi" "wc -l" zfile2

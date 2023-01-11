@@ -9,4 +9,4 @@ unknown1: <not created>
 zfile2: <updated with a 0 inside which means the cmd has been executed>
 
 CMD:
-valgrind --leak-check=full ./pipex zunknown1 "nonvalid1" "wc -l" zfile2
+vgfull ./pipex zunknown1 "nonvalid1" "wc -l" zfile2

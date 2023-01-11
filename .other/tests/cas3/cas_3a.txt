@@ -9,4 +9,4 @@ zfile1:
 zunknown2: <created with the right result inside>
 
 CMD:
-valgrind --leak-check=full ./pipex zfile1 "grep pi" "wc -l" zunknown2
+vgfull ./pipex zfile1 "grep pi" "wc -l" zunknown2

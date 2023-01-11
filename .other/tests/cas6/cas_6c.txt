@@ -8,4 +8,4 @@ FILES:
 zfile2: < Rewritten >
 
 CMD:
-valgrind --leak-check=full ./pipex "" "nonvalid1" "wc -l" zfile2
+vgfull ./pipex "" "nonvalid1" "wc -l" zfile2
