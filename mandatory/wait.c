@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:12:48 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/11 11:26:06 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:31:25 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,10 @@ int	ft_wait(t_pipex pipex)
 	int		status;
 
 	close_pipes(&pipex);
-	if (pipex.exec_cmd_input == 1)
-	{
-		if (wait_first_child(&pipex, &status) < 0)
-			return (0);
-	}
-	if (pipex.exec_cmd_output == 1)
-	{
-		if (wait_second_child(&pipex, &status) < 0)
-			return (0);
-	}
+	if (pipex.exec_cmd_input == 1 && wait_first_child(&pipex, &status) < 0)
+		return (0);
+	if (pipex.exec_cmd_output == 1 && wait_second_child(&pipex, &status) < 0)
+		return (0);
 	close_files(&pipex);
 	free_pipex(&pipex);
 	return (0);

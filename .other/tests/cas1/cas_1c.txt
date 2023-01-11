@@ -11,4 +11,4 @@ unknown2: <created: empty>
 
 CMD:
 valgrind --leak-check=full ./pipex zunknown1 "nonvalid1" "wc -l" zunknown2
-./pipex zunknown1 "grep pi" "wc -l" zunknown2
+./pipex zunknown1 "nonvalid1" "wc -l" zunknown2
