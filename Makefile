@@ -6,7 +6,7 @@
 #    By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 16:16:53 by valentin          #+#    #+#              #
-#    Updated: 2023/01/09 10:51:53 by vmourtia         ###   ########.fr        #
+#    Updated: 2023/01/11 11:25:29 by vmourtia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRCS =		mandatory/main.c \
 			mandatory/init.c \
 			mandatory/free.c \
 			mandatory/close.c \
+			mandatory/wait.c \
 			mandatory/child.c \
 			mandatory/alert.c
 

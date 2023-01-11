@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:40:00 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/09 10:53:30 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:07:30 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,15 @@ void	second_child(t_pipex pipex, char **av, char **envp)
 	execve(pipex.exe_path, pipex.cmd_args, envp);
 }
 
+void	run_second_child(t_pipex pipex, char **av, char **envp)
+{
+	pipex.child2_pid = fork();
+	if (pipex.child2_pid == 0)
+		second_child(pipex, av, envp);
+	else if (pipex.child2_pid < 0)
+		alert_msg(FORK_ALERT);
+}
+
 void	first_child(t_pipex pipex, char **av, char **envp)
 {
 	close(pipex.pipefd[0]);
@@ -83,4 +92,13 @@ void	first_child(t_pipex pipex, char **av, char **envp)
 		exit(1);
 	}
 	execve(pipex.exe_path, pipex.cmd_args, envp);
+}
+
+void	run_first_child(t_pipex pipex, char **av, char **envp)
+{
+	pipex.child1_pid = fork();
+	if (pipex.child1_pid == 0)
+		first_child(pipex, av, envp);
+	else if (pipex.child1_pid < 0)
+		alert_msg(FORK_ALERT);
 }
