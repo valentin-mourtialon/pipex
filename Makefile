@@ -3,25 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+         #
+#    By: valentin <valentin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 16:16:53 by valentin          #+#    #+#              #
-#    Updated: 2023/01/16 15:28:48 by vmourtia         ###   ########.fr        #
+#    Updated: 2023/01/17 18:01:26 by valentin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BONUS_LIBFT =	bonus/libft/ft_split.c \
-				bonus/libft/ft_strlen.c \
-				bonus/libft/ft_strjoin.c \
-				bonus/libft/ft_strncmp.c
-
-BONUS_SRCS =	bonus/main.c \
-				bonus/init.c \
-				bonus/free.c \
-				bonus/close.c \
-				bonus/wait.c \
-				bonus/child.c \
-				bonus/alert.c
+BONUS_SRCS =	bonus/main_bonus.c \
+				bonus/init_bonus.c \
+				bonus/free_bonus.c \
+				bonus/close_bonus.c \
+				bonus/wait_bonus.c \
+				bonus/child_bonus.c \
+				bonus/alert_bonus.c
 
 SRCS =			mandatory/main.c \
 				mandatory/init.c \
@@ -31,14 +26,14 @@ SRCS =			mandatory/main.c \
 				mandatory/child.c \
 				mandatory/alert.c
 
-LIBFT  =		mandatory/libft/ft_split.c \
-				mandatory/libft/ft_strlen.c \
-				mandatory/libft/ft_strjoin.c \
-				mandatory/libft/ft_strncmp.c
+LIBFT  =		libft/ft_split.c \
+				libft/ft_strlen.c \
+				libft/ft_strjoin.c \
+				libft/ft_strncmp.c
 
 OBJS = 			${SRCS:c=o} ${LIBFT:c=o}
 
-BONUS_OBJS = 	${BONUS_SRCS:c=o} ${BONUS_LIBFT:c=o}
+BONUS_OBJS = 	${BONUS_SRCS:c=o} ${LIBFT:c=o}
 
 NAME =			pipex
 
@@ -50,7 +45,7 @@ INC =			-I./includes/
 
 RM =			rm -f
 
-all :			${NAME}
+all :			mandatory
 
 bonus :			$(BONUS_OBJS)
 				$(CC) $(BONUS_OBJS) -o $(NAME)
@@ -58,8 +53,7 @@ bonus :			$(BONUS_OBJS)
 %.o : %.c
 				${CC} ${CFLAGS} ${INC} -c $< -o $@ -g
 
-
-${NAME} :		${OBJS}
+mandatory :		${OBJS}
 				${CC} ${OBJS} -o ${NAME}
 
 clean :
@@ -70,5 +64,7 @@ fclean :		clean
 
 re :			fclean all
 
-.PHONY :		all clean fclean re
+rebonus :		fclean bonus
+
+.PHONY :		all clean fclean bonus re
 

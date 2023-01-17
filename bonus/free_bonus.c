@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:06 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/16 16:43:30 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:22:36 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex_bonus.h>
+#include "../includes/pipex_bonus.h"
 
 /*
 	This function is used to free cmd_args
@@ -60,6 +60,4 @@ void	free_pipex(t_pipex *pipex)
 		free_bin_paths(pipex);
 	if (pipex->pipefd)
 		free_pipefd(pipex);
-	if (pipex->child_pids)
-		free(child_pids);
 }

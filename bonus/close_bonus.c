@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   close_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:41:37 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/16 16:08:42 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/17 19:21:03 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pipex_bonus.h>
+#include "../includes/pipex_bonus.h"
 
 /*
 	In this function, we prevent the program from
@@ -33,4 +33,15 @@ void	close_pipe(int	*pipefd)
 		close(pipefd[1]);
 }
 
-/* close_all_pipes */
+void	close_all_pipes(t_pipex *pipex)
+{
+	int	i;
+
+	i = 0;
+	while (i < pipex->cmd_nbr - 1 && pipex->pipefd)
+	{
+		if (pipex->pipefd[i])
+			close_pipe(pipex->pipefd[i]);
+		i++;
+	}
+}
