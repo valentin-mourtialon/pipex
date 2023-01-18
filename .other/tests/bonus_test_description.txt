@@ -1,0 +1,1 @@
+valgrind ./pipex zfile1 "grep -n2 pi" "grep MA" "wc -l" zfile2

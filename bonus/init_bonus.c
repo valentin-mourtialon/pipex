@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:45 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/17 18:27:53 by valentin         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:02:11 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	init_pipex(t_pipex *pipex, int ac)
 	pipex->cmd_nbr = ac - 3;
 	pipex->exec_cmd_input = 1;
 	pipex->exec_cmd_output = 1;
-	pipex->input_file = 0;
-	pipex->output_file = 0;
-	pipex->childpid = 0;
+	pipex->input_file = -1;
+	pipex->output_file = -1;
+	pipex->childpid = -1;
 	if (init_pipefd(pipex) < 0)
 		return (-1);
 	pipex->paths = NULL;

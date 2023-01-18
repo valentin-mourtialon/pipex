@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:41:37 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/17 19:21:03 by valentin         ###   ########.fr       */
+/*   Updated: 2023/01/18 10:36:27 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,13 @@ void	close_all_pipes(t_pipex *pipex)
 			close_pipe(pipex->pipefd[i]);
 		i++;
 	}
+}
+
+/*
+	Close all pipes and files.
+*/
+void	close_all(t_pipex *pipex)
+{
+	close_all_pipes(pipex);
+	close_files(pipex);
 }

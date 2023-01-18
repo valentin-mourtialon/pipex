@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:21:28 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/17 19:30:37 by valentin         ###   ########.fr       */
+/*   Updated: 2023/01/18 13:19:52 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,14 @@ int	main(int ac, char **av, char **envp)
 	while (pipex.index < pipex.cmd_nbr)
 	{
 		printf("\tindex = %d\n", pipex.index);
-		child(pipex, av, envp);
-		ft_wait(pipex);
+		child(&pipex, av, envp);
+		printf("\tchildpid = %d\n", pipex.childpid);
 		printf("\texecuted\n");
 		pipex.index++;
 		printf("\n");
 	}
+	close_all_pipes(&pipex);
+	close_files(&pipex);
+	free_pipex(&pipex);
 	return (0);
 }

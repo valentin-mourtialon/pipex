@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:18:36 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/17 17:51:39 by valentin         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:21:36 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define INTERRUPT_FIRST_CHILD "First child interrupted.\n"
 # define INTERRUPT_CHILD "Child interrupted.\n"
 # define INTERRUPT_LAST_CHILD "Last child interrupted.\n"
+# define EXECVE_ALERT "Execution issue in child process.\n"
+
 
 /*
 	Should be free in pipex:
@@ -83,11 +85,12 @@ void	free_pipex(t_pipex *pipex);
 void	close_files(t_pipex *pipex);
 void	close_pipe(int	*pipefd);
 void	close_all_pipes(t_pipex *pipex);
+void	close_all(t_pipex *pipex);
 
 /* wait.c */
-int		ft_wait(t_pipex pipex);
+int		ft_wait(t_pipex *pipex);
 
 /* child.c */
-void	child(t_pipex pipex, char **av, char **envp);
+void	child(t_pipex *pipex, char **av, char **envp);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:40:00 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/17 19:31:57 by valentin         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:24:10 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,62 +34,61 @@ static char	*get_exe_path(char **bin_paths, char *cmd)
 	return (NULL);
 }
 
-static void	first_child_io(t_pipex pipex)
+static void	first_child_io(t_pipex *pipex)
 {
-	if (pipex.exec_cmd_input == 1)
+	if (pipex->exec_cmd_input == 1)
 	{
-		if (pipex.input_file >= 0)
+		if (pipex->input_file >= 0)
 		{
-			dup2(pipex.input_file, STDIN_FILENO);
-			close(pipex.input_file);
+			dup2(pipex->input_file, STDIN_FILENO);
+			close(pipex->input_file);
 		}
-		dup2(pipex.pipefd[pipex.index][1], STDOUT_FILENO);
+		dup2(pipex->pipefd[pipex->index][1], STDOUT_FILENO);
 	}
 }
 
-static void	last_child_io(t_pipex pipex, char **av)
+static void	last_child_io(t_pipex *pipex, char **av)
 {
-	init_output(&pipex, av);
-	if (pipex.exec_cmd_output == 1)
+	init_output(pipex, av);
+	if (pipex->exec_cmd_output == 1)
 	{
-		dup2(pipex.pipefd[pipex.index][0], STDIN_FILENO);
-		dup2(pipex.output_file, STDOUT_FILENO);
-		close(pipex.output_file);
+		dup2(pipex->pipefd[pipex->index - 1][0], STDIN_FILENO);
+		dup2(pipex->output_file, STDOUT_FILENO);
+		close(pipex->output_file);
 	}
 }
 
-static void	child_io(t_pipex pipex)
+static void	child_io(t_pipex *pipex)
 {
-	dup2(pipex.pipefd[pipex.index - 1][0], STDIN_FILENO);
-	dup2(pipex.pipefd[pipex.index][1], STDOUT_FILENO);
+	dup2(pipex->pipefd[pipex->index - 1][0], STDIN_FILENO);
+	dup2(pipex->pipefd[pipex->index][1], STDOUT_FILENO);
 }
 
-void	child(t_pipex pipex, char **av, char **envp)
+void	child(t_pipex *pipex, char **av, char **envp)
 {
-	pipex.childpid = fork();
-	//printf("\tchildpid = %d\n", pipex.childpid);
-	if (pipex.childpid == 0)
+	pipex->childpid = fork();
+	if (pipex->childpid == 0)
 	{
-		printf("\t\tchildpid = %d\n", pipex.childpid);
-		if (pipex.index == 0)
+		if (pipex->index == 0)
 			first_child_io(pipex);
-		else if (pipex.index == pipex.cmd_nbr - 1)
+		else if (pipex->index == pipex->cmd_nbr - 1)
 			last_child_io(pipex, av);
 		else
 			child_io(pipex);
-		close_all_pipes(&pipex);
-		pipex.cmd_args = ft_split(av[pipex.index + 2], ' ');
-		if (!pipex.cmd_args)
-			exit_child(&pipex, NULL);
-		pipex.exe_path = get_exe_path(pipex.bin_paths, pipex.cmd_args[0]);
-		if (!pipex.exe_path)
+		close_all(pipex);
+		pipex->cmd_args = ft_split(av[pipex->index + 2], ' ');
+		if (!pipex->cmd_args)
+			exit_child(pipex, NULL);
+		pipex->exe_path = get_exe_path(pipex->bin_paths, pipex->cmd_args[0]);
+		if (!pipex->exe_path)
 		{
-			alert_msg(pipex.cmd_args[0]);
-			exit_child(&pipex, CMD_ALERT);
+			alert_msg(pipex->cmd_args[0]);
+			exit_child(pipex, CMD_ALERT);
 		}
-		execve(pipex.exe_path, pipex.cmd_args, envp);
+		if (execve(pipex->exe_path, pipex->cmd_args, envp) < 0)
+			exit_child(pipex, EXECVE_ALERT);
 	}
-	else if (pipex.childpid < 0)
+	else if (pipex->childpid < 0)
 		alert_msg(FORK_ALERT);
 }
 
@@ -168,8 +167,42 @@ void	child(t_pipex pipex, char **av, char **envp)
 
 		            pipefd[0]               pipefd[i-1]  pipefd[i]    pipefd[p -1]
 		        		 1                       1         1             1
-		input_file cmd 0 |... ... ... | cmd i-1  |  cmd i  | ... ... ... |  cmd p  output_file
+		input_file cmd 1 |... ... ... | cmd i-1  |  cmd i  | ... ... ... |  cmd p  output_file
 				         0                       0         0             0
 			                               i-1        i					    p - 1
 	
+*/
+
+/*
+
+	index pipe						0        1
+	pipedfd 				    pipefd[0]  pipefd[1]
+	write			        		1        1
+				< input_file  cmd1  |  cmd2  |  cmd3  >  output_file
+	read							0        0
+	index cmd					0        1        2
+
+
+				Parent		Child
+				|
+			   	|
+	fork()	-	| 15389 ---- 0
+				|			|
+				| wait		|
+				|			|
+				|<----------| exit
+
+	fork()	-	| 15390 ---- 0
+				|			|
+				| wait		|
+				|			|
+				|<----------| exit
+
+	fork()	-	| 15391 ---- 0
+				|			|
+				| wait		|
+				|			|
+				|<----------| exit
+
+				| end
 */
