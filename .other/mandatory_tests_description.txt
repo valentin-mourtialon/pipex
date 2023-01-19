@@ -1,10 +1,3 @@
-Where did 0644 come from?
-
-It is an octal expression (leading 0) of the unix file mode. 
-See e.g. the chmod manpage. 
-0644 means the owner can read+write (4+2=6), the group can read (4), and others can read (4).
-
-
 Dans le document "tests/case": tous les outputs des cas decrits ci-dessous.
 
 Cas a tester:

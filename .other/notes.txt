@@ -1,0 +1,13 @@
+Where did 0644 come from?
+
+- It is an octal expression (leading 0) of the unix file mode. 
+
+- 0644 means the owner can read+write (4+2=6), the group can read (4), and others can read (4).
+
+
+A tester:
+
+- La commande contient déjà le chemin de ses fichiers binaires 
+(ex: "/usr/bin/cat" au lieu de simplement "cat" ).
+
+- Le fichier d’entrée est un fichier qui génère à l’infini, comme /dev/random.
