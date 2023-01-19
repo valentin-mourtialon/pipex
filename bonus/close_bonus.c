@@ -6,11 +6,11 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:41:37 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/18 10:36:27 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/19 09:59:35 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex_bonus.h"
+#include <pipex_bonus.h>
 
 /*
 	In this function, we prevent the program from

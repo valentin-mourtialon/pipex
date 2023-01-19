@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: valentin <valentin@student.42.fr>          +#+  +:+       +#+         #
+#    By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 16:16:53 by valentin          #+#    #+#              #
-#    Updated: 2023/01/17 18:01:26 by valentin         ###   ########.fr        #
+#    Updated: 2023/01/19 08:00:44 by vmourtia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ BONUS_SRCS =	bonus/main_bonus.c \
 				bonus/close_bonus.c \
 				bonus/wait_bonus.c \
 				bonus/child_bonus.c \
-				bonus/alert_bonus.c
+				bonus/alert_bonus.c \
+				bonus/exit_bonus.c
 
 SRCS =			mandatory/main.c \
 				mandatory/init.c \
@@ -24,7 +25,8 @@ SRCS =			mandatory/main.c \
 				mandatory/close.c \
 				mandatory/wait.c \
 				mandatory/child.c \
-				mandatory/alert.c
+				mandatory/alert.c \
+				mandatory/exit.c
 
 LIBFT  =		libft/ft_split.c \
 				libft/ft_strlen.c \

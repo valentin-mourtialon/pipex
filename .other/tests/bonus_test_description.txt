@@ -1,1 +1,9 @@
-valgrind ./pipex zfile1 "grep -n2 pi" "grep MA" "wc -l" zfile2
+< zfile1 grep -n2 pi | grep MA | wc -l > zfile2
+
+vgfull ./pipex zfile1 "grep -n2 pi" "grep MA" "wc -l" zfile2
+
+--track-fds=yes
+
+vgfull --track-fds=yes ./pipex zfile1 "grep -n2 pi" "grep MA" "wc -l" zfile2
+
+valgrind --leak-check=full --show-leak-kinds=all ./pipex zfile1 "grep -n2 pi" "grep MA" "wc -l" zfile2 

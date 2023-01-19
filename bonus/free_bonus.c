@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:06 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/17 17:22:36 by valentin         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:01:19 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex_bonus.h"
+#include <pipex_bonus.h>
 
 /*
 	This function is used to free cmd_args
@@ -22,9 +22,12 @@ void	free_child(t_pipex *pipex)
 	int	k;
 
 	k = 0;
-	while (pipex->cmd_args[k])
-		free(pipex->cmd_args[k++]);
-	free(pipex->cmd_args);
+	if (pipex->cmd_args)
+	{
+		while (pipex->cmd_args[k])
+			free(pipex->cmd_args[k++]);
+		free(pipex->cmd_args);
+	}
 }
 
 void	free_bin_paths(t_pipex *pipex)
@@ -38,13 +41,12 @@ void	free_bin_paths(t_pipex *pipex)
 			free(pipex->bin_paths[i++]);
 	}
 	free(pipex->bin_paths);
-
 }
 
 void	free_pipefd(t_pipex *pipex)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < pipex->cmd_nbr - 1)
 	{

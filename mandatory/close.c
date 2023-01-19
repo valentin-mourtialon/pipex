@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:41:37 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/09 10:54:25 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/19 09:59:16 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,13 @@ void	close_pipes(t_pipex *pipex)
 		close(pipex->pipefd[0]);
 	if (pipex->pipefd[1] >= 0)
 		close(pipex->pipefd[1]);
+}
+
+/*
+	Close all pipes and files.
+*/
+void	close_all(t_pipex *pipex)
+{
+	close_pipes(pipex);
+	close_files(pipex);
 }

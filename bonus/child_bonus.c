@@ -6,11 +6,11 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:40:00 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/18 11:24:10 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:00:06 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex_bonus.h"
+#include <pipex_bonus.h>
 
 static char	*get_exe_path(char **bin_paths, char *cmd)
 {
@@ -34,7 +34,7 @@ static char	*get_exe_path(char **bin_paths, char *cmd)
 	return (NULL);
 }
 
-static void	first_child_io(t_pipex *pipex)
+static int	first_child_io(t_pipex *pipex)
 {
 	if (pipex->exec_cmd_input == 1)
 	{
@@ -44,10 +44,16 @@ static void	first_child_io(t_pipex *pipex)
 			close(pipex->input_file);
 		}
 		dup2(pipex->pipefd[pipex->index][1], STDOUT_FILENO);
+		return (1);
+	}
+	else
+	{
+		close_all(pipex);
+		return (-1);
 	}
 }
 
-static void	last_child_io(t_pipex *pipex, char **av)
+static int	last_child_io(t_pipex *pipex, char **av)
 {
 	init_output(pipex, av);
 	if (pipex->exec_cmd_output == 1)
@@ -55,6 +61,12 @@ static void	last_child_io(t_pipex *pipex, char **av)
 		dup2(pipex->pipefd[pipex->index - 1][0], STDIN_FILENO);
 		dup2(pipex->output_file, STDOUT_FILENO);
 		close(pipex->output_file);
+		return (1);
+	}
+	else
+	{
+		close_all(pipex);
+		return (-1);
 	}
 }
 
@@ -69,24 +81,21 @@ void	child(t_pipex *pipex, char **av, char **envp)
 	pipex->childpid = fork();
 	if (pipex->childpid == 0)
 	{
-		if (pipex->index == 0)
-			first_child_io(pipex);
-		else if (pipex->index == pipex->cmd_nbr - 1)
-			last_child_io(pipex, av);
-		else
+		if (pipex->index == 0 && first_child_io(pipex) < 0)
+			exit_child(pipex, NULL, NULL);
+		else if (pipex->index == pipex->cmd_nbr - 1 && last_child_io(pipex, av) < 0)
+			exit_child(pipex, NULL, NULL);
+		else if (pipex->index != 0 && pipex->index != pipex->cmd_nbr - 1)
 			child_io(pipex);
 		close_all(pipex);
 		pipex->cmd_args = ft_split(av[pipex->index + 2], ' ');
 		if (!pipex->cmd_args)
-			exit_child(pipex, NULL);
+			exit_child(pipex, NULL, NULL);
 		pipex->exe_path = get_exe_path(pipex->bin_paths, pipex->cmd_args[0]);
 		if (!pipex->exe_path)
-		{
-			alert_msg(pipex->cmd_args[0]);
-			exit_child(pipex, CMD_ALERT);
-		}
+			exit_child(pipex, pipex->cmd_args[0], CMD_ALERT);
 		if (execve(pipex->exe_path, pipex->cmd_args, envp) < 0)
-			exit_child(pipex, EXECVE_ALERT);
+			exit_child(pipex, EXECVE_ALERT, NULL);
 	}
 	else if (pipex->childpid < 0)
 		alert_msg(FORK_ALERT);
@@ -102,7 +111,7 @@ void	child(t_pipex *pipex, char **av, char **envp)
 
 */
 
- /* 
+/* 
 	Description of our t_pipex structure :
 
 	argv index :			 0     1    2    3    4    5     6

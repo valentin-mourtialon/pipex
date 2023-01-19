@@ -6,12 +6,12 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:18:36 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/18 11:21:36 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/19 09:58:17 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -30,7 +30,6 @@
 # define INTERRUPT_CHILD "Child interrupted.\n"
 # define INTERRUPT_LAST_CHILD "Last child interrupted.\n"
 # define EXECVE_ALERT "Execution issue in child process.\n"
-
 
 /*
 	Should be free in pipex:
@@ -68,7 +67,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 /* alert.c */
 void	error_msg(char *msg);
 void	alert_msg(char *msg);
-void	exit_child(t_pipex *pipex, char *msg);
 
 /* init.c */
 void	init_output(t_pipex *pipex, char **av);
@@ -88,9 +86,12 @@ void	close_all_pipes(t_pipex *pipex);
 void	close_all(t_pipex *pipex);
 
 /* wait.c */
-int		ft_wait(t_pipex *pipex);
+void	ft_wait(t_pipex *pipex);
 
 /* child.c */
 void	child(t_pipex *pipex, char **av, char **envp);
+
+/* exit_bonus.c */
+void	exit_child(t_pipex *pipex, char *msg1, char *msg2);
 
 #endif

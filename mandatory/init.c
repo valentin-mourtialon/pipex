@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:45 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/10 14:53:21 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/19 09:58:54 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	init_pipex(t_pipex *pipex)
 {
 	pipex->exec_cmd_input = 1;
 	pipex->exec_cmd_output = 1;
-	pipex->input_file = 0;
-	pipex->output_file = 0;
-	pipex->child1_pid = 0;
-	pipex->child2_pid = 0;
+	pipex->input_file = -1;
+	pipex->output_file = -1;
+	pipex->child1_pid = -1;
+	pipex->child2_pid = -1;
 	pipex->pipefd[0] = 0;
 	pipex->pipefd[1] = 0;
 	pipex->paths = NULL;
