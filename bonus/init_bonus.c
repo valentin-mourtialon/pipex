@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:45 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/19 10:00:47 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:29:47 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ int	init_pipex(t_pipex *pipex, int ac)
 	pipex->exec_cmd_output = 1;
 	pipex->input_file = -1;
 	pipex->output_file = -1;
-	pipex->childpid = -1;
+	pipex->pids = malloc(sizeof(int) * pipex->cmd_nbr);
+	if (pipex->pids == NULL)
+		return (-1);
 	if (init_pipefd(pipex) < 0)
 		return (-1);
 	pipex->paths = NULL;

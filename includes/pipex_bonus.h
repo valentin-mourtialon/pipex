@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:18:36 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/19 09:58:17 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:28:29 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_pipex {
 	int		exec_cmd_output;
 	int		input_file;
 	int		output_file;
-	int		childpid;
+	int		*pids;
 	int		**pipefd;
 	char	*paths;
 	char	*exe_path;
@@ -86,7 +86,9 @@ void	close_all_pipes(t_pipex *pipex);
 void	close_all(t_pipex *pipex);
 
 /* wait.c */
-void	ft_wait(t_pipex *pipex);
+/*void	ft_wait(t_pipex *pipex);*/
+void	pipex_wait(t_pipex *pipex);
+
 
 /* child.c */
 void	child(t_pipex *pipex, char **av, char **envp);

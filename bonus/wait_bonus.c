@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:12:48 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/19 10:01:51 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:36:54 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 	for a childpid that is not initialized 
 	(as there is no fork if the input file is not found).
 */
+/*
 void	ft_wait(t_pipex *pipex)
 {
 	int		status;
@@ -31,4 +32,17 @@ void	ft_wait(t_pipex *pipex)
 		close_files(pipex);
 		free_pipex(pipex);
 	}
+}
+*/
+
+void	pipex_wait(t_pipex *pipex)
+{
+	//int		pid;
+	int		status;
+
+	close_all_pipes(pipex);
+	while (--pipex->index >= 0)
+		waitpid(pipex->pids[pipex->index], &status, 0);
+	close_files(pipex);
+	free_pipex(pipex);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:40:00 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/19 10:00:06 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:31:38 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ static void	child_io(t_pipex *pipex)
 
 void	child(t_pipex *pipex, char **av, char **envp)
 {
-	pipex->childpid = fork();
-	if (pipex->childpid == 0)
+	pipex->pids[pipex->index] = fork();
+	if (pipex->pids[pipex->index] == 0)
 	{
 		if (pipex->index == 0 && first_child_io(pipex) < 0)
 			exit_child(pipex, NULL, NULL);
@@ -97,7 +97,7 @@ void	child(t_pipex *pipex, char **av, char **envp)
 		if (execve(pipex->exe_path, pipex->cmd_args, envp) < 0)
 			exit_child(pipex, EXECVE_ALERT, NULL);
 	}
-	else if (pipex->childpid < 0)
+	else if (pipex->pids[pipex->index] < 0)
 		alert_msg(FORK_ALERT);
 }
 
@@ -183,6 +183,9 @@ void	child(t_pipex *pipex, char **av, char **envp)
 */
 
 /*
+	Version 1:
+		- Wait after fork()
+		- Worked well but not suited for the project specifications
 
 	index pipe						0        1
 	pipedfd 				    pipefd[0]  pipefd[1]

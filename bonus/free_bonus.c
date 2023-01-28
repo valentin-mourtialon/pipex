@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:06 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/19 10:01:19 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:40:18 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,6 @@ void	free_pipex(t_pipex *pipex)
 		free_bin_paths(pipex);
 	if (pipex->pipefd)
 		free_pipefd(pipex);
+	if (pipex->pids)
+		free(pipex->pids);
 }
