@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:40:00 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/28 15:31:38 by valentin         ###   ########.fr       */
+/*   Updated: 2023/01/28 15:50:39 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,9 +183,6 @@ void	child(t_pipex *pipex, char **av, char **envp)
 */
 
 /*
-	Version 1:
-		- Wait after fork()
-		- Worked well but not suited for the project specifications
 
 	index pipe						0        1
 	pipedfd 				    pipefd[0]  pipefd[1]
@@ -200,21 +197,29 @@ void	child(t_pipex *pipex, char **av, char **envp)
 			   	|
 	fork()	-	| 15389 ---- 0
 				|			|
-				| wait		|
 				|			|
-				|<----------| exit
+				|			|
+				|<----------| end
 
 	fork()	-	| 15390 ---- 0
 				|			|
-				| wait		|
 				|			|
-				|<----------| exit
+				|			|
+				|<----------| end
 
 	fork()	-	| 15391 ---- 0
 				|			|
-				| wait		|
 				|			|
-				|<----------| exit
-
+				|			|
+				|<----------| end
+				
+				| close all fds
+				|
+				| wait 15391
+				| wait 15390
+				| wait 15389
+				|
+				| free
+				|
 				| end
 */
