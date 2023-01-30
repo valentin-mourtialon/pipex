@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:21:28 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/19 09:58:57 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:58:30 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ int	main(int ac, char **av, char **envp)
 	init_output(&pipex, av);
 	if (pipex.exec_cmd_output == 1)
 		run_second_child(pipex, av, envp);
-	return (exit_pipex(&pipex), 0);
+	return (ft_wait(&pipex));
 }

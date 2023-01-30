@@ -7,111 +7,122 @@ Cas a tester:
 	Cas 1: les deux files n'existent pas:
 
 		Cas 1a:
-			2 commandes valides ---------------------- OK | OK
+			2 commandes valides ---------------------- OK
 
 		Cas 1b:
-			cmd1 valide - cmd2 non-valide ------------ OK | OK
+			cmd1 valide - cmd2 non-valide ------------ OK
 
 		Cas 1c:
-			cmd1 non-valide - cmd2 valide ------------ OK | OK
+			cmd1 non-valide - cmd2 valide ------------ OK
 
 		Cas 1d:
-			cmd1 non-valide - cmd2 non-valide -------- OK | OK
+			cmd1 non-valide - cmd2 non-valide -------- OK
 
 ------------
 
 	Cas 2: file1 non valide
 		
 		Cas 2a:
-			2 commandes valides ---------------------- OK | OK
+			2 commandes valides ---------------------- OK
 
 		Cas 2b:
-			cmd1 valide - cmd2 non-valide ------------ OK | OK
+			cmd1 valide - cmd2 non-valide ------------ OK
 
 		Cas 2c:
-			cmd1 non-valide - cmd2 valide ------------ OK | OK
+			cmd1 non-valide - cmd2 valide ------------ OK
 
 		Cas 2d:
-			cmd1 non-valide - cmd2 non-valide -------- OK | OK
+			cmd1 non-valide - cmd2 non-valide -------- OK
 	
 ------------
 
 	Cas 3: file2 non valide
 		
 		Cas 3a:
-			2 commandes valides ---------------------- OK | OK
+			2 commandes valides ---------------------- OK 
 
 		Cas 3b:
-			cmd1 valide - cmd2 non-valide ------------ OK | OK
+			cmd1 valide - cmd2 non-valide ------------ OK
 
 		Cas 3c:
-			cmd1 non-valide - cmd2 valide ------------ OK | OK
+			cmd1 non-valide - cmd2 valide ------------ OK 
 
 		Cas 3d:
-			cmd1 non-valide - cmd2 non-valide -------- OK | OK
+			cmd1 non-valide - cmd2 non-valide -------- OK
 
 ------------
 
 	Cas 4: les 2 files sont valides
 		
 		Cas 4a:
-			2 commandes valides ---------------------- OK | OK
+			2 commandes valides ---------------------- OK
 
 		Cas 4b:
-			cmd1 valide - cmd2 non-valide ------------ OK | OK
+			cmd1 valide - cmd2 non-valide ------------ OK
 
 		Cas 4c:
-			cmd1 non-valide - cmd2 valide ------------ OK | OK
+			cmd1 non-valide - cmd2 valide ------------ OK
 
 		Cas 4d:
-			cmd1 non-valide - cmd2 non-valide -------- OK | OK
+			cmd1 non-valide - cmd2 non-valide -------- OK
 
 ------------
 
 	Cas 5: les 2 files ne sont pas renseignes
 		
 		Cas 5a:
-			2 commandes valides ---------------------- OK | OK
+			2 commandes valides ---------------------- OK 
 
 		Cas 5b:
-			cmd1 valide - cmd2 non-valide ------------ OK | OK
+			cmd1 valide - cmd2 non-valide ------------ OK
 
 		Cas 5c:
-			cmd1 non-valide - cmd2 valide ------------ OK | OK
+			cmd1 non-valide - cmd2 valide ------------ OK
 
 		Cas 5d:
-			cmd1 non-valide - cmd2 non-valide -------- OK | OK
+			cmd1 non-valide - cmd2 non-valide -------- OK
 
 ------------
 
 	Cas 6: file1 non renseigne mais file2 oui
 		
 		Cas 6a:
-			2 commandes valide ---------------------- OK | OK
+			2 commandes valide ---------------------- OK
 
 		Cas 6b:
-			cmd1 valide - cmd2 non-valide ------------ OK | OK
+			cmd1 valide - cmd2 non-valide ----------- OK
 
 		Cas 6c:
-			cmd1 non-valide - cmd2 valide ------------ OK | OK
+			cmd1 non-valide - cmd2 valide ----------- OK
 
 		Cas 6d:
-			cmd1 non-valide - cmd2 non-valide -------- OK | OK
+			cmd1 non-valide - cmd2 non-valide ------- OK
 
 ------------
 
 	Cas 7: file2 non renseigne ("") mais file1 oui
 		
 		Cas 7a:
-			2 commandes valides ---------------------- OK | OK
+			2 commandes valides --------------------- OK
 
 		Cas 7b:
-			cmd1 valide - cmd2 non-valide ------------ OK | OK
+			cmd1 valide - cmd2 non-valide ----------- OK
 
 		Cas 7c:
-			cmd1 non-valide - cmd2 valide ------------ OK [KO ------------ Parce que je sors du programme si Outfile Error] | OK 
+			cmd1 non-valide - cmd2 valide ----------- OK
 
 		Cas 7d:
-			cmd1 non-valide - cmd2 non-valide -------- OK [KO ------------ Parce que je sors du programme si Outfile Error] | OK
+			cmd1 non-valide - cmd2 non-valide ------- OK
 
 ------------
+
+		More: d'autres cas à prendre en compte
+		
+		catcatls: ----------------------------------- OK
+			Pour mandatory faire valgrind --leak-check=full ./pipex /dev/stdin cat ls /dev/stdout
+
+		cmdpath:
+			On donne les chemins vers les binaires des commandes 
+
+		devrandom:
+			On donne un fichier qui génère à l'infini

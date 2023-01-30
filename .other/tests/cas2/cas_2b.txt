@@ -9,4 +9,7 @@ unknown1: <not created>
 zfile2: <not updated >
 
 CMD:
+
+valgrind --leak-check=full ./pipex zunknown1 "grep pi" "nonvalid2" zfile2
+
 vgfull ./pipex zunknown1 "grep pi" "nonvalid2" zfile2

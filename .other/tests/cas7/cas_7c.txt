@@ -8,5 +8,7 @@ FILES:
 
 
 CMD:
-valgrind --leak-check=full ./pipex "zfile1" "grep pi" "wc -l" ""
+
+valgrind --leak-check=full ./pipex "zfile1" "nonvalid" "wc -l" ""
+
 vgfull ./pipex "zfile1" "nonvalid1" "wc -l" ""

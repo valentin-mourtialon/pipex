@@ -9,4 +9,7 @@ FILES:
 
 
 CMD:
+
+valgrind --leak-check=full ./pipex "" "grep pi" "nonvalid2" ""
+
 vgfull ./pipex "" "grep pi" "nonvalid2" ""

@@ -6,4 +6,5 @@ vgfull ./pipex zfile1 "grep -n2 pi" "grep MA" "wc -l" zfile2
 
 vgfull --track-fds=yes ./pipex zfile1 "grep -n2 pi" "grep MA" "wc -l" zfile2
 
-valgrind --leak-check=full --show-leak-kinds=all ./pipex zfile1 "grep -n2 pi" "grep MA" "wc -l" zfile2 
+valgrind --leak-check=full --show-leak-kinds=all ./pipex zfile1 "grep -n2 pi" "grep MA" "wc -l" zfile2
+

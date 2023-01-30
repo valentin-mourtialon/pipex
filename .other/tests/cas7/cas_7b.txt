@@ -1,0 +1,14 @@
+IN:
+< zfile1 grep pi | nonvalid > ""
+
+OUT: 
+no such file or directory
+
+FILES:
+
+
+CMD:
+
+valgrind --leak-check=full ./pipex "zfile1" "grep pi" "nonvalid" ""
+
+vgfull ./pipex "zfile1" "grep pi" "nonvalid" ""

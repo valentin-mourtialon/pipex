@@ -5,6 +5,17 @@ Where did 0644 come from?
 - 0644 means the owner can read+write (4+2=6), the group can read (4), and others can read (4).
 
 
+Notes:
+
+- Essayer de reproduire les sorties rouges !
+
+- Protéger les exits mandatory ?
+
+- Retester mandatory
+
+- Pour entrée standard: /dev/stdin et pour sortie standard: /dev/stdout
+
+
 A tester:
 
 - La commande contient déjà le chemin de ses fichiers binaires 

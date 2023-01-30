@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:18:36 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/19 07:35:24 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:48:00 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,9 @@ void	free_pipex(t_pipex *pipex);
 /* close.c */
 void	close_files(t_pipex *pipex);
 void	close_pipes(t_pipex *pipex);
-void	close_all(t_pipex *pipex);
 
 /* wait.c */
-/*int		wait_first_child(t_pipex *pipex, int *status);
-int		wait_second_child(t_pipex *pipex, int *status);
-int		ft_wait(t_pipex pipex);*/
+int		ft_wait(t_pipex *pipex);
 
 /* child.c */
 void	run_second_child(t_pipex pipex, char **av, char **envp);
@@ -79,6 +76,5 @@ void	run_first_child(t_pipex pipex, char **av, char **envp);
 
 /* exit.c */
 void	exit_child(t_pipex *pipex, char *msg1, char *msg2);
-void	exit_pipex(t_pipex *pipex);
 
 #endif

@@ -1,0 +1,9 @@
+IN:
+
+< zfile1 PATH_GREP pi | PATH_WC -l > zfile2
+
+CMD:
+
+valgrind --leak-check=full ./pipex zfile1 "PATH_GREP" "PATH_WC -l" zfile2
+
+vgfull ./pipex zfile1 "PATH_GREP" "PATH_WC -l" zfile2

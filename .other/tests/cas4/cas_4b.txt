@@ -8,4 +8,7 @@ FILES:
 zunknown2: < Emptied ! >
 
 CMD:
+
+valgrind --leak-check=full ./pipex zfile1 "grep pi" "nonvalid2" zfile2
+
 vgfull ./pipex zfile1 "grep pi" "nonvalid2" zfile2
