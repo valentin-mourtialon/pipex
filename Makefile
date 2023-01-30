@@ -6,18 +6,11 @@
 #    By: valentin <valentin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 16:16:53 by valentin          #+#    #+#              #
-#    Updated: 2023/01/28 15:42:14 by valentin         ###   ########.fr        #
+#    Updated: 2023/01/30 15:43:36 by valentin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-BONUS_SRCS =	bonus/main_bonus.c \
-				bonus/init_bonus.c \
-				bonus/free_bonus.c \
-				bonus/close_bonus.c \
-				bonus/wait_bonus.c \
-				bonus/child_bonus.c \
-				bonus/alert_bonus.c \
-				bonus/exit_bonus.c
+# MANDATORY SRCS
 
 SRCS =			mandatory/main.c \
 				mandatory/init.c \
@@ -32,10 +25,29 @@ LIBFT  =		libft/ft_split.c \
 				libft/ft_strlen.c \
 				libft/ft_strjoin.c \
 				libft/ft_strncmp.c
+				
+# BONUS SRCS
+
+BONUS_SRCS =	bonus/main_bonus.c \
+				bonus/init_bonus.c \
+				bonus/free_bonus.c \
+				bonus/close_bonus.c \
+				bonus/wait_bonus.c \
+				bonus/child_bonus.c \
+				bonus/alert_bonus.c \
+				bonus/exit_bonus.c
+
+BONUS_LIBFT  =	${LIBFT} libft/ft_strchr.c
+
+GNL =			gnl/get_next_line.c
+
+# OBJECTS
 
 OBJS = 			${SRCS:c=o} ${LIBFT:c=o}
 
-BONUS_OBJS = 	${BONUS_SRCS:c=o} ${LIBFT:c=o}
+BONUS_OBJS = 	${BONUS_SRCS:c=o} ${BONUS_LIBFT:c=o} ${GNL:c=o}
+
+# OTHER VARIABLES 
 
 NAME =			pipex
 
@@ -46,6 +58,8 @@ CFLAGS =		-Wall -Werror -Wextra
 INC =			-I./includes/
 
 RM =			rm -f
+
+# TARGETS
 
 all :			mandatory
 
@@ -68,5 +82,5 @@ re :			fclean all
 
 rebonus :		fclean bonus
 
-.PHONY :		all clean fclean bonus re
+.PHONY :		all clean fclean bonus re rebonus
 

@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:18:36 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/28 15:28:29 by valentin         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:44:15 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 /*
 	Should be free in pipex:
+	int		*pids;
 	int		**pipefd;
 	char	**bin_paths;
 
@@ -60,6 +61,7 @@ typedef struct s_pipex {
 
 /* stdlib */
 size_t	ft_strlen(const char *s);
+char	*ft_strchr(char *s, int c);
 char	**ft_split(char const *s, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
