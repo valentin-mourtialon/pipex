@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:06 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/28 15:40:18 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:02:27 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,19 @@ void	free_pipex(t_pipex *pipex)
 		free_pipefd(pipex);
 	if (pipex->pids)
 		free(pipex->pids);
+}
+
+void	free_args(char **args)
+{
+	int	i;
+
+	if (args == NULL)
+		return;
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
 }

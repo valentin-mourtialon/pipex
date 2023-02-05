@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:45 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/28 15:29:47 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/05 17:07:47 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ static int	init_pipefd(t_pipex *pipex)
 	The first char * is the cmd.
 	All other char* are either an option or an arg of the cmd.
 */
-int	init_pipex(t_pipex *pipex, int ac)
+int	init_pipex(t_pipex *pipex, int cmdnbr)
 {
 	pipex->index = 0;
-	pipex->cmd_nbr = ac - 3;
+	pipex->cmd_nbr = cmdnbr;
 	pipex->exec_cmd_input = 1;
 	pipex->exec_cmd_output = 1;
 	pipex->input_file = -1;

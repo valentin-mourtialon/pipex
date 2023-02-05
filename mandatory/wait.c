@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:12:48 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/30 12:46:15 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/05 14:57:47 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int	ft_wait(t_pipex *pipex)
 
 	close_pipes(pipex);
 	if (pipex->exec_cmd_input == 1)/* && wait_first_child(pipex, &status) < 0)*/
-		waitpid(pipex->child1_pid, status, 0);
+		waitpid(pipex->child1_pid, &status, 0);
 	if (pipex->exec_cmd_output == 1)/* && wait_second_child(pipex, &status) < 0)*/
-		waitpid(pipex->child2_pid, status, 0);
+		waitpid(pipex->child2_pid, &status, 0);
 	close_files(pipex);
 	free_pipex(pipex);
 	return (0);

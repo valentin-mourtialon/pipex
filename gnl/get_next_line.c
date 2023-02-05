@@ -5,115 +5,116 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 11:09:23 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/01/30 15:37:12 by valentin         ###   ########.fr       */
+/*   Created: 2023/01/31 10:24:30 by valentin          #+#    #+#             */
+/*   Updated: 2023/02/05 18:17:51 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <get_next_line.h>
 
-/*
-	Why i + 2 ?
+/* 
+	nbytes is the number of bytes read by
+	the read() function.
 
-	Example: memory = "get\n next line\0"
-
-	After the first while-loop, we'll have:
-	i = 3
-
-	This number (i=3) means that we need to
-	alloc 3 chars which are, in our example,
-	"get".
-
-	However, the subject mentions that our
-	line should end with a "\n" (newline)
-	if the end of the file isn't encountered.
-	In this way, we know that we have to 
-	alloc i + 1 for the moment...
-
-	Because we still have to save a byte for
-	our "end of string" character: "\0".
-
-	Conclusion: i + 1 + 1.
-
-	Note: it also works with the following
-	example: "get next line\0" where the "\0"
-	is encountered before the "\n" that is 
-	never met.
+	The following statement ensure that if
+	we don't read the entire file the static
+	memory is still freed (catch with a 
+	negative file descriptor) !
+	if (memory != NULL)
+		free_memory(memory);
+	
 */
-static char	*write_line_from_memory(char *memory)
+static int	init_gnl(t_gnl *gnl, int fd, t_list **memory)
 {
-	char	*line;
-	int		i;
-
-	i = 0;
-	if (memory && !memory[i])
-		return (free(memory), NULL);
-	while (memory[i] && memory[i] != '\n')
-		i++;
-	line = malloc(sizeof(char) * (i + 2));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (memory[i] && memory[i] != '\n')
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &fd, 0) < 0)
 	{
-		line[i] = memory[i];
-		i++;
+		if (memory != NULL)
+			free_memory(memory);
+		return (0);
 	}
-	if (memory[i] == '\n')
-	{
-		line[i] = memory[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
+	gnl->fd = fd;
+	gnl->nbytes = 1;
+	gnl->line = NULL;
+	gnl->buffer = NULL;
+	return (1);
 }
 
-static char	*clear_memory(char *memory)
+/*
+	No need to protect the get_last_memory_element
+	return as the only way for this function
+	to return a NULL is to send it a NULL but
+	we already check that memory isn't NULL before
+	sending it. 
+*/
+static int	find_newline(t_list *memory)
 {
-	char	*cleared_memory;
+	t_list	*memptr;
 	int		i;
-	int		j;
 
+	if (memory == NULL)
+		return (0);
+	memptr = get_last_memory_element(memory);
 	i = 0;
-	while (memory[i] && memory[i] != '\n')
+	while (memptr->str && memptr->str[i])
+	{
+		if (memptr->str[i] == '\n')
+			return (1);
 		i++;
-	if (memory && !memory[i])
-		return (free(memory), NULL);
-	cleared_memory = malloc(sizeof(char) * (ft_strlen(memory) - i + 1));
-	if (!cleared_memory)
-		return (NULL);
-	j = 0;
-	while (memory[i])
-		cleared_memory[j++] = memory[++i];
-	cleared_memory[j] = '\0';
-	free(memory);
-	return (cleared_memory);
+	}
+	return (0);
+}
+
+/*
+	While there'se no newline in memory 
+	AND read() function reads 1 or more bytes.
+
+	The first if-condition INSIDE the while-loop:
+		1. memory == NULL && gnl.nbytes == 0
+		2. gnl.nbytes == -1
+
+		1. is the case where we first pass 
+		on our file (as the memory is NULL) 
+		and we didn't read anything from 
+		the file (nbytes == 0).
+*/
+static void	read_and_save(t_list **memory, t_gnl *gnl)
+{
+	while (find_newline(*memory) == 0 && gnl->nbytes != 0)
+	{
+		gnl->buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (gnl->buffer == NULL)
+			return;
+		gnl->nbytes = read(gnl->fd, gnl->buffer, BUFFER_SIZE);
+		if ((*memory == NULL && gnl->nbytes == 0) || (int)gnl->nbytes == -1)
+		{
+			free(gnl->buffer);
+			return;
+		}
+		gnl->buffer[gnl->nbytes] = '\0';
+		add_back_to_memory(memory, gnl);
+		free(gnl->buffer);
+		gnl->buffer = NULL;
+	}
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*memory;
-	char		*line;
-	int			nbytes;
-	char		*buffer;
+	static t_list	*memory = NULL;
+	t_gnl			gnl;
 
-	if (BUFFER_SIZE < 1 || fd < 0 || fd >= FOPEN_MAX || read(fd, 0, 0) < 0)
+	if (init_gnl(&gnl, fd, &memory) == 0)
 		return (NULL);
-	nbytes = 1;
-	while (!ft_strchr(memory, '\n') && nbytes != 0)
+	read_and_save(&memory, &gnl);
+	if (memory == NULL)
+		return (NULL);
+	extract_line(memory, &gnl);
+	clear_memory(&memory);
+	if (gnl.line[0] == '\0')
 	{
-		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (!buffer)
-			return (NULL);
-		nbytes = read(fd, buffer, BUFFER_SIZE);
-		if (nbytes < 0)
-			return (free(buffer), NULL);
-		buffer[nbytes] = 0;
-		memory = ft_strjoin(memory, buffer);
-		if (!memory)
-			return (free(buffer), NULL);
+		free_memory(&memory);
+		memory = NULL;
+		free(gnl.line);
+		return (NULL);
 	}
-	line = write_line_from_memory(memory);
-	memory = clear_memory(memory);
-	return (line);
+	return (gnl.line);
 }

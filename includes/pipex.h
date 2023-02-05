@@ -6,7 +6,7 @@
 /*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:18:36 by valentin          #+#    #+#             */
-/*   Updated: 2023/01/30 15:34:49 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:51:56 by valentin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ typedef struct s_pipex {
 }	t_pipex;
 
 /* stdlib */
-size_t	ft_strlen(const char *s);
+int		ft_strlen(const char *s);
 char	*ft_strchr(char *s, int c);
 char	**ft_split(char const *s, char c);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 /* alert.c */
