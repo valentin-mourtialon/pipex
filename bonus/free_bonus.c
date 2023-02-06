@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:06 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/02/05 19:02:27 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:39:07 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	free_args(char **args)
 	int	i;
 
 	if (args == NULL)
-		return;
+		return ;
 	i = 0;
 	while (args[i])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 18:53:00 by valentin          #+#    #+#             */
-/*   Updated: 2023/02/05 21:04:26 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:38:46 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static void	alloc_onearg(char **args, char **av, int i)
 {
 	int	arglen;
-	
+
 	arglen = ft_strlen(av[i]);
 	args[i] = malloc(sizeof(char) * (arglen + 1));
 	if (args[i] == NULL)
-		return;
+		return ;
 	args[i][arglen] = '\0';
 }
 
@@ -36,7 +36,7 @@ static void	alloc_args(char **args, char **av, int argsnbr)
 		arglen = ft_strlen(av[i + 1]);
 		args[i] = malloc(sizeof(char) * (arglen + 1));
 		if (args[i] == NULL)
-			return;
+			return ;
 		args[i][arglen] = '\0';
 		i++;
 	}

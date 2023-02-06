@@ -3,11 +3,10 @@ zunknown*
 ./pipex
 
 .vscode/
+.other/comments.txt
 .other/cmds
-.other/cemetery
 .other/debug
-.other/notes
-.other/split
+.other/notes.txt
 
 # Prerequisites
 *.d

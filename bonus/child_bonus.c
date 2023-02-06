@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:40:00 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/02/06 10:31:47 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:50:01 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	child(t_pipex *pipex, char **av, char **envp)
 	{
 		if (pipex->index == 0 && first_child_io(pipex) < 0)
 			exit_child(pipex, NULL, NULL);
-		else if (pipex->index == pipex->cmd_nbr - 1 && last_child_io(pipex, av) < 0)
+		else if (pipex->index == pipex->cmd_nbr - 1 \
+				&& last_child_io(pipex, av) < 0)
 			exit_child(pipex, NULL, NULL);
 		else if (pipex->index != 0 && pipex->index != pipex->cmd_nbr - 1)
 			child_io(pipex);
@@ -226,4 +227,47 @@ void	child(t_pipex *pipex, char **av, char **envp)
 				| free
 				|
 				| end
+*/
+
+/*
+	old ft_wait function:
+
+	static int	wait_first_child(t_pipex *pipex, int *status)
+	{
+		waitpid(pipex->child1_pid, status, 0);
+		if (!WIFEXITED(*status))
+		{
+			close_files(pipex);
+			free_pipex(pipex);
+			return (alert_msg(INTERRUPT_CHILD1), -1);
+		}
+		return (0);
+	}
+
+	static int	wait_second_child(t_pipex *pipex, int *status)
+	{
+		waitpid(pipex->child2_pid, status, 0);
+		if (!WIFEXITED(*status))
+		{
+			close_files(pipex);
+			free_pipex(pipex);
+			return (alert_msg(INTERRUPT_CHILD2), -1);
+		}
+		return (0);
+	}
+	
+	void	ft_wait(t_pipex *pipex)
+	{
+		int		status;
+
+		if (pipex->index < pipex->cmd_nbr - 1)
+			waitpid(pipex->childpid, &status, WNOHANG);
+		else if (pipex->index == pipex->cmd_nbr - 1)
+		{
+			close_all_pipes(pipex);
+			waitpid(pipex->childpid, &status, WNOHANG);
+			close_files(pipex);
+			free_pipex(pipex);
+		}
+	}
 */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:42:45 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/02/05 17:07:47 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:50:46 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	init_input(t_pipex *pipex, char **av)
 */
 void	init_output(t_pipex *pipex, char **av)
 {
-	pipex->output_file = open(av[pipex->index + 3], O_RDWR | O_CREAT | O_TRUNC, 0644);
+	pipex->output_file = \
+		open(av[pipex->index + 3], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (pipex->output_file < 0)
 	{
 		error_msg(av[pipex->index + 3]);

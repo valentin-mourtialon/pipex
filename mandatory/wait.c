@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wait.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:12:48 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/02/05 14:57:47 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:47:34 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
-
-/*
-static int	wait_first_child(t_pipex *pipex, int *status)
-{
-	waitpid(pipex->child1_pid, status, 0);
-	if (!WIFEXITED(*status))
-	{
-		close_files(pipex);
-		free_pipex(pipex);
-		return (alert_msg(INTERRUPT_CHILD1), -1);
-	}
-	return (0);
-}
-
-static int	wait_second_child(t_pipex *pipex, int *status)
-{
-	waitpid(pipex->child2_pid, status, 0);
-	if (!WIFEXITED(*status))
-	{
-		close_files(pipex);
-		free_pipex(pipex);
-		return (alert_msg(INTERRUPT_CHILD2), -1);
-	}
-	return (0);
-}
-*/
 
 /*
 	The one tricky thing in this function are the if-conditions.
@@ -49,9 +23,9 @@ int	ft_wait(t_pipex *pipex)
 	int		status;
 
 	close_pipes(pipex);
-	if (pipex->exec_cmd_input == 1)/* && wait_first_child(pipex, &status) < 0)*/
+	if (pipex->exec_cmd_input == 1)
 		waitpid(pipex->child1_pid, &status, 0);
-	if (pipex->exec_cmd_output == 1)/* && wait_second_child(pipex, &status) < 0)*/
+	if (pipex->exec_cmd_output == 1)
 		waitpid(pipex->child2_pid, &status, 0);
 	close_files(pipex);
 	free_pipex(pipex);

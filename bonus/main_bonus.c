@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:21:28 by valentin          #+#    #+#             */
-/*   Updated: 2023/02/06 10:25:55 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:40:52 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ int	main(int ac, char **av, char **envp)
 	}
 	else
 		exit_code = multi_pipes(ac - 3, av, envp);
-	return(exit_code);
+	return (exit_code);
 }

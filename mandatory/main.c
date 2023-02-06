@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:21:28 by valentin          #+#    #+#             */
-/*   Updated: 2023/02/06 10:29:11 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:55:20 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ static char	*get_bin_paths(char **envp)
 	or if there is an error while opening it,
 	there is no fork, and, as a result,
 	the command is simply not executed.
+
+	If paths is NULL, the program does not
+	exit because the full bin path could be
+	given by the user !
 */
 int	main(int ac, char **av, char **envp)
 {
