@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:54:38 by valentin          #+#    #+#             */
-/*   Updated: 2023/02/06 10:45:28 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:00:13 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,17 @@ static void	create_pipes(t_pipex *pipex)
 
 static char	*get_bin_paths(char **envp)
 {
+	int	i;
+
 	if (envp == NULL)
 		return (NULL);
-	while (ft_strncmp("PATH", *envp, 4))
-		envp++;
-	return (*envp);
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp("PATH", envp[i], 4))
+			break ;
+		i++;
+	}
 }
 
 /*

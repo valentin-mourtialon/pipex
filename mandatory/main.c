@@ -6,7 +6,7 @@
 /*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:21:28 by valentin          #+#    #+#             */
-/*   Updated: 2023/02/06 10:55:20 by vmourtia         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:59:50 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 static char	*get_bin_paths(char **envp)
 {
+	int	i;
+
 	if (envp == NULL)
 		return (NULL);
-	while (ft_strncmp("PATH", *envp, 4))
-		envp++;
-	return (*envp);
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp("PATH", envp[i], 4))
+			break ;
+		i++;
+	}
 }
 
 /*
