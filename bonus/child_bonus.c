@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:40:00 by vmourtia          #+#    #+#             */
-/*   Updated: 2023/02/05 21:38:13 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:31:47 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char	*get_exe_path(char **bin_paths, char *cmd)
 
 	if (access(cmd, F_OK | X_OK) == 0)
 		return (cmd);
+	if (bin_paths == NULL)
+		return (NULL);
 	while (*bin_paths)
 	{
 		tmp = ft_strjoin(*bin_paths, "/");

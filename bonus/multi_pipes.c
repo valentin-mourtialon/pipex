@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multipipes.c                                       :+:      :+:    :+:   */
+/*   multi_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valentin <valentin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 16:54:38 by valentin          #+#    #+#             */
-/*   Updated: 2023/02/05 17:09:54 by valentin         ###   ########.fr       */
+/*   Updated: 2023/02/06 10:32:52 by vmourtia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void	create_pipes(t_pipex *pipex)
 
 static char	*get_bin_paths(char **envp)
 {
+	if (envp == NULL)
+		return (NULL);
 	while (ft_strncmp("PATH", *envp, 4))
 		envp++;
 	return (*envp);
@@ -59,11 +61,11 @@ int	multi_pipes(int cmdnbr, char **av, char **envp)
 	init_input(&pipex, av);
 	create_pipes(&pipex);
 	pipex.paths = get_bin_paths(envp);
-	if (!pipex.paths)
-		return (alert_msg(PATH_NOT_FOUND_ALERT), 0);
+	if (pipex.paths == NULL)
+		alert_msg(PATH_NOT_FOUND_ALERT);
 	pipex.bin_paths = ft_split(pipex.paths, ':');
-	if (!pipex.bin_paths)
-		return (alert_msg(SPLIT_BIN_PATHS_ALERT), 0);
+	if (pipex.bin_paths == NULL)
+		alert_msg(SPLIT_BIN_PATHS_ALERT);
 	while (pipex.index < pipex.cmd_nbr)
 	{
 		child(&pipex, av, envp);

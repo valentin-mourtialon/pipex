@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: valentin <valentin@student.42.fr>          +#+  +:+       +#+         #
+#    By: vmourtia <vmourtia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 16:16:53 by valentin          #+#    #+#              #
-#    Updated: 2023/02/05 18:54:50 by valentin         ###   ########.fr        #
+#    Updated: 2023/02/06 10:26:17 by vmourtia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ BONUS_SRCS =	bonus/main_bonus.c \
 				bonus/alert_bonus.c \
 				bonus/exit_bonus.c \
 				bonus/handle_heredoc.c \
-				bonus/multipipes.c \
+				bonus/multi_pipes.c \
 				bonus/args.c
 
 GNL =			gnl/get_next_line.c \
